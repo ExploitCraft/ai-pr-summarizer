@@ -162,7 +162,7 @@ ai-pr-summarizer/
 PRs welcome! Please open an issue first for major changes.
 
 ```bash
-git clone https://github.com/your-username/ai-pr-summarizer
+git clone https://github.com/ExploitCraft/ai-pr-summarizer
 cd ai-pr-summarizer
 pip install -r requirements.txt
 python main.py --repo your-org/your-repo --pr 1
@@ -172,4 +172,4 @@ python main.py --repo your-org/your-repo --pr 1
 
 ## 📄 License
 
-MIT © your-username
+MIT © ExploitCraft
