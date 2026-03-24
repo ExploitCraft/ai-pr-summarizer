@@ -1,0 +1,60 @@
+name: "AI PR Summarizer"
+description: "Automatically summarize pull requests using Claude AI — adds a comment with summary, risks, file overview, and suggested title."
+author: "your-username"
+
+branding:
+  icon: "cpu"
+  color: "purple"
+
+inputs:
+  github_token:
+    description: "GitHub token for posting comments and reading PR data"
+    required: true
+    default: ${{ github.token }}
+
+  anthropic_api_key:
+    description: "Anthropic API key for Claude"
+    required: true
+
+  pr_number:
+    description: "Pull request number (auto-detected from event context)"
+    required: false
+
+  repo:
+    description: "Repository in owner/repo format (auto-detected from event context)"
+    required: false
+    default: ${{ github.repository }}
+
+  post_comment:
+    description: "Post the summary as a comment on the PR"
+    required: false
+    default: "true"
+
+  update_title:
+    description: "Update the PR title with the AI-suggested conventional commit title"
+    required: false
+    default: "false"
+
+outputs:
+  suggested_title:
+    description: "AI-suggested PR title in conventional commit format"
+
+  change_type:
+    description: "Detected change type: feat | fix | refactor | chore | docs | test | perf"
+
+  summary:
+    description: "Plain-English summary of the PR"
+
+  has_breaking_changes:
+    description: "true if breaking changes were detected, false otherwise"
+
+runs:
+  using: "docker"
+  image: "Dockerfile"
+  env:
+    GITHUB_TOKEN: ${{ inputs.github_token }}
+    ANTHROPIC_API_KEY: ${{ inputs.anthropic_api_key }}
+    INPUT_REPO: ${{ inputs.repo }}
+    INPUT_PR_NUMBER: ${{ inputs.pr_number }}
+    INPUT_POST_COMMENT: ${{ inputs.post_comment }}
+    INPUT_UPDATE_TITLE: ${{ inputs.update_title }}

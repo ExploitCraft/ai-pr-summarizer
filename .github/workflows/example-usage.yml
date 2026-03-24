@@ -1,0 +1,21 @@
+name: AI PR Summary
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  summarize:
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write  # needed to post comments
+      contents: read
+
+    steps:
+      - name: AI PR Summarizer
+        uses: your-username/ai-pr-summarizer@v1
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          post_comment: true
+          update_title: false   # set to true to auto-update PR title
